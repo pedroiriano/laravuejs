@@ -1,7 +1,9 @@
 <template>
     <div class="container">
+        <!-- BEGIN::Row -->
         <div class="row mt-5">
             <div class="col-md-12">
+            <!-- BEGIN::Card -->
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">Users Table</h3>
@@ -10,7 +12,7 @@
                         <button class="btn btn-primary" data-toggle="modal" data-target="#addNew">Add New <i class="fas fa-user-plus fa-fw"></i></button>
                     </div>
                 </div>
-                <!-- /.card-header -->
+                <!-- BEGIN::Table -->
                 <div class="card-body table-responsive p-0">
                     <table class="table table-hover">
                     <thead>
@@ -19,15 +21,17 @@
                         <th scope="col">Name</th>
                         <th scope="col">Email</th>
                         <th scope="col">Type</th>
+                        <th scope="col">Created At</th>
                         <th scope="col">Modify</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>@mdo</td>
-                        <td><span class="label label-success">Approved</span></td>
+                        <tr v-for="user in users" :key="user.id">
+                        <td scope="row">{{user.id}}</td>
+                        <td>{{user.name}}</td>
+                        <td>{{user.email}}</td>
+                        <td>{{user.type | upText}}</td>
+                        <td>{{user.created_at}}</td>
                         <td>
                             <a href="#">
                                 <i class="fas fa-edit orange"></i>
@@ -41,13 +45,14 @@
                     </tbody>
                     </table>
                 </div>
-                <!-- /.card-body -->
+                <!-- END::Table -->
             </div>
-            <!-- /.card -->
+            <!-- END::Card -->
             </div>
         </div>
+        <!-- END::Row -->
 
-        <!-- Modal -->
+        <!-- BEGIN::Modal -->
         <div class="modal fade" id="addNew" tabindex="-1" role="dialog" aria-labelledby="addNewTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
@@ -57,6 +62,8 @@
                     <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
+                <!-- BEGIN::Form -->
+                <form @submit.prevent="createUser">
                 <div class="modal-body">
                     <div class="form-group">
                         <input v-model="form.name" type="text" name="name" id="name" placeholder="Name" class="form-control" :class="{ 'is-invalid': form.errors.has('name') }">
@@ -87,11 +94,14 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Create</button>
+                    <button type="submit" class="btn btn-primary">Create</button>
                 </div>
+                </form>
+                <!-- END::Form -->
                 </div>
             </div>
         </div>
+        <!-- END::Modal -->
     </div>
 </template>
 
@@ -99,6 +109,7 @@
     export default {
         data() {
             return {
+                users: {},
                 form: new Form({
                     name: '',
                     email: '',
@@ -109,8 +120,16 @@
                 })
             }
         },
-        mounted() {
-            console.log('Component mounted.')
+        methods: {
+            loadUser() {
+                axios.get('api/user').then(({ data }) => (this.users = data.data));
+            },
+            createUser() {
+                this.form.post('api/user');
+            }
+        },
+        created() {
+            this.loadUser();
         }
     }
 </script>
