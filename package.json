@@ -29,7 +29,9 @@
         "datatables.net": "^1.10.20",
         "datatables.net-dt": "^1.10.20",
         "moment": "^2.24.0",
+        "sweetalert2": "^9.8.2",
         "vform": "^1.0.1",
+        "vue-progressbar": "^0.7.5",
         "vue-router": "^3.1.5"
     }
 }

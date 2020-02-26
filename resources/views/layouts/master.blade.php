@@ -109,9 +109,9 @@
     </aside>
     <!-- END::Main Sidebar Container -->
 
-    <!-- Begin::Content Wrapper -->
+    <!-- BEGIN::Content Wrapper -->
     <div class="content-wrapper">
-        <!-- Begin::Content Header -->
+        <!-- BEGIN::Content Header -->
         <div class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2">
@@ -129,24 +129,27 @@
         </div>
         <!-- END::Content Header -->
 
-        <!-- Begin::Main content -->
+        <!-- BEGIN::Main Content -->
         <div class="content">
         <div class="container-fluid">
+            <!-- SET::Router View -->
             <router-view></router-view>
+            <!-- SET::Progress Bar -->
+            <vue-progress-bar></vue-progress-bar>
         </div>
         </div>
-        <!-- END::Main content -->
+        <!-- END::Main Content -->
     </div>
     <!-- END::Content Wrapper -->
 
-    <!-- Begin::Main Footer -->
+    <!-- BEGIN::Main Footer -->
     <footer class="main-footer">
-        <!-- Begin::To the right -->
+        <!-- BEGIN::To the right -->
         <div class="float-right d-none d-sm-inline">
             LaraPi
         </div>
         <!-- END::To the right -->
-        <!-- Begin::Default to the left -->
+        <!-- BEGIN::Default to the left -->
         <strong>Copyright &copy; 2020 <a href="http://pepeve-group.com">PPV</a>.</strong> All rights reserved.
         <!-- END::Default to the left -->
     </footer>
